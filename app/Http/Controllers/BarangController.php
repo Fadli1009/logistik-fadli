@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Barang;
 use App\Models\BarangKeluar;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
@@ -100,5 +102,50 @@ class BarangController extends Controller
     {
         $barang->delete();
         return redirect()->route('barang.index')->with('success', 'Data Barang Masuk berhasil dihapus');
+    }
+
+    public function filterDate(Request $request)
+    {
+        $startDate = Carbon::createFromFormat('Y-m-d', $request->input(key: 'startDate'))->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $request->input('endDate'))->endofDay();
+        $barang = Barang::orderBy('id', 'desc')->get();
+        $lastCode = DB::table('barang')->orderBy('id', 'desc')->value('kodeBarang');
+        $cekBarang = Barang::where('qty', 0)->count();
+        if (!$lastCode) {
+            $kodeBarang = "B000001";
+        } else {
+            $lastNumber = (int)substr($lastCode, 1);
+            $kodeBarang = "B" . str_pad($lastNumber + 1, 6, '0', STR_PAD_LEFT);
+        }
+        $data = Barang::whereBetween('created_at', [$startDate, $endDate])->get();
+        if ($data->isNotEmpty()) {
+            return view('pages.barang-masuk.filter', compact('data', 'kodeBarang', 'startDate', 'endDate'));
+        }
+        return redirect()->back()->with('warning', 'Data tidak ada');
+    }
+    public function print()
+    {
+        $data = Barang::orderBy('id', 'desc')->get();
+        $pdf = Pdf::loadView('pages.barang-masuk.laporan', ['data' => $data]);
+        return $pdf->download('databarangmasuk.pdf');
+        // return view('pages.barang-masuk.laporan', compact('data'));
+    }
+    public function printFilter(Request $request)
+    {
+        // $startDate = Carbon::createFromFormat('Y-m-d', $request->startDate)->startOfDay();
+        // $endDate = Carbon::createFromFormat('Y-m-d', $request->endDate)->endofDay();
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $lastCode = DB::table('barang')->orderBy('id', 'desc')->value('kodeBarang');
+        if (!$lastCode) {
+            $kodeBarang = "B000001";
+        } else {
+            $lastNumber = (int)substr($lastCode, 1);
+            $kodeBarang = "B" . str_pad($lastNumber + 1, 6, '0', STR_PAD_LEFT);
+        }
+
+        $data = Barang::whereBetween('created_at', [$startDate, $endDate])->get();
+        $pdf = Pdf::loadView('pages.barang-masuk.laporanFilter', ['data' => $data, 'kodeBarang' => $kodeBarang, 'startDate' => $startDate, 'endDate' => $endDate]);
+        return $pdf->download('databarangmasuk.pdf');
     }
 }
