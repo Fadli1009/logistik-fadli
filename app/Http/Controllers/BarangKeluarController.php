@@ -135,20 +135,26 @@ class BarangKeluarController extends Controller
         }
     }
 
-    public function printKeluar()
+
+    public function printKeluar(Request $request)
     {
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
         $dataBarangKeluar = BarangKeluar::orderBy('id', 'desc')->with('barang')->get();
-        $pdf = Pdf::loadView('pages.barang-keluar.laporan', ['dataBarangKeluar' => $dataBarangKeluar]);
+        $pdf = Pdf::loadView('pages.barang-keluar.laporan', ['dataBarangKeluar' => $dataBarangKeluar, 'startDate' => $startDate, 'endDate' => $endDate]);
         return $pdf->download('datapengeluaranbarang.pdf');
         // return view('pages.barang-keluar.laporan', compact('dataBarangKeluar'));
     }
+
     public function filterBarangKeluar(Request $request)
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $request->startDate)->startOfDay();
         $endDate = Carbon::createFromFormat('Y-m-d', $request->endDate)->endOfDay();
         $barang = Barang::all();
-
         $dataBarangKeluar = BarangKeluar::whereBetween('created_at', [$startDate, $endDate])->with('barang')->get();
+        if ($dataBarangKeluar->isEmpty()) {
+            return redirect()->route('barangKeluar.index')->with('warning', 'Tidak ada data pengeluaran barang pada tanggal yang dipilih');
+        }
         // $pdf = Pdf::loadView('pages.barang-keluar.laporan', ['dataBarangKeluar' => $dataBarangKeluar]);
         // return $pdf->download('datapengeluaran-tanggal.pdf');
         return view('pages.barang-keluar.filter', compact('startDate', 'endDate', 'dataBarangKeluar', 'barang'));

@@ -5,7 +5,7 @@
         <h3 class="fw-bold">Data Barang Masuk / Keluar</h3>
     </div>
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-primary text-white">
             <h5>Stok Barang</h5>
         </div>
         <div class="card-body">
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="card mt-5">
-        <div class="card-header">
+        <div class="card-header bg-primary text-white">
             <h5>QTY Pengeluaran Barang</h5>
         </div>
         <div class="card-body">
@@ -68,7 +68,7 @@
 
         var options = {
             series: [{
-                name: "Pengeluaran barang hari ini",
+                name: "QTY pengeluaran barang hari ini",
                 data: [{{ $totalPengeluaran }}]
             }],
             chart: {

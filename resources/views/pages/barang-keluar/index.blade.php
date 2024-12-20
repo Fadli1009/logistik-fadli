@@ -27,7 +27,11 @@
             </form>
             <div class="d-flex justify-content-end my-3">
                 <a href="/print" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</a>
-
+                {{-- <form action="{{ route('printBarangKeluar') }}" method="get">
+                    <input type="hidden" name="startDate" value="{{ $startDate }}">
+                    <input type="hidden" name="endDate" value="{{ $endDate }}">
+                    <button type="submit" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</button>
+                </form> --}}
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-plus-circle"></i> Tambah Barang
                 </button>

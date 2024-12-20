@@ -14,7 +14,7 @@ Route::post('/getData', [BarangKeluarController::class, 'getById'])->name('getBy
 Route::post('/getBarangKeluar', [BarangKeluarController::class, 'getBarangKeluar'])->name('getBarangKeluar');
 
 Route::get('/stokbarang', [StokBarangController::class, 'index']);
-Route::get('/print', [BarangKeluarController::class, 'printKeluar']);
+Route::get('/print', [BarangKeluarController::class, 'printKeluar'])->name('printBarangKeluar');
 Route::get('/printbarang', [BarangController::class, 'print']);
 Route::get('/printbarangFilter', [BarangController::class, 'printFilter'])->name('printFilter');
 Route::get('/printbarangKeluar', [BarangKeluarController::class, 'printbarangKeluar'])->name('printbarangKeluar');
