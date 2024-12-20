@@ -42,7 +42,7 @@
                                 <button type="button" class="btn btn-sm btn-warning edit-button" id="edit"
                                     data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}"
                                     data-id="{{ $item->id }}">
-                                    <i class="bi bi-pencil-square"></i> Edit 
+                                    <i class="bi bi-pencil-square"></i> Edit
                                 </button>
                                 <form action="{{ route('barangKeluar.destroy', $item->id) }}" method="POST"
                                     style="display: inline-block;">
