@@ -2,7 +2,7 @@
 @section('title', 'Stok Barang')
 @section('content')
     <div class="my-3 text-center">
-        <h3 class="fw-bold">Data Barang Masuk</h3>
+        <h3 class="fw-bold">Data Barang Masuk / Keluar</h3>
     </div>
     <div class="card">
         <div class="card-header">
@@ -23,7 +23,7 @@
     <script>
         var options = {
             series: [{
-                name: "Sisa Stok Barang",
+                name: "QTY stok barang hari ini",
                 data: [{{ $total }}]
             }],
             chart: {
@@ -68,7 +68,7 @@
 
         var options = {
             series: [{
-                name: "Jumlah pengeluaran barang",
+                name: "Pengeluaran barang hari ini",
                 data: [{{ $totalPengeluaran }}]
             }],
             chart: {

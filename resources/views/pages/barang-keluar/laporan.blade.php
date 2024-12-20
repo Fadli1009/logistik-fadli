@@ -50,9 +50,11 @@
     </style>
 </head>
 
+
 <body>
     <h1>Fadli Logistik</h1>
-    <h2>Laporan Pengeluaran Barang</h2>
+    <h2>Data Barang Keluar Dari Tanggal {{ \Carbon\Carbon::parse($startDate)->format('d-m-Y') }} -
+        {{ \Carbon\Carbon::parse($endDate)->format('d-m-Y') }}</h2>
     <p>Tanggal: {{ date('d/m/Y') }}</p>
 
     <table>

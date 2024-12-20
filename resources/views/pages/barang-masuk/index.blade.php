@@ -11,31 +11,34 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <div class="d-flex justify-content-end my-3">
-            <a href="/printbarang" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</a>
+        <div class="d-flex justify-content-between align-items-center gap-3 mb-2">
+            <form action="{{ route('filterDate') }}" method="get" class="d-flex align-items-start mb-3 gap-3">
+                <div class="form-group">
+                    <label for="startDate" class="form-label">Mulai dari</label>
+                    <input type="date" name="startDate" id="startDate" class="form-control" required>
+                </div>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="bi bi-plus-circle"></i> Tambah Barang
-            </button>
-        </div>
-        <form action="{{ route('filterDate') }}" method="get" class="d-flex align-items-start mb-3 gap-3">
-            <div class="form-group">
-                <label for="startDate" class="form-label">Mulai dari</label>
-                <input type="date" name="startDate" id="startDate" class="form-control" required>
-            </div>
+                <div class="form-group">
+                    <label for="endDate" class="form-label">Sampai</label>
+                    <input type="date" name="endDate" id="endDate" class="form-control" required>
+                </div>
 
-            <div class="form-group">
-                <label for="endDate" class="form-label">Sampai</label>
-                <input type="date" name="endDate" id="endDate" class="form-control" required>
-            </div>
+                <div class="form-group">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="submit" class="btn btn-primary d-block">
+                        Cari
+                    </button>
+                </div>
+            </form>
+            <div class="d-flex justify-content-end my-3">
+                <a href="/printbarang" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</a>
 
-            <div class="form-group">
-                <label class="form-label">&nbsp;</label>
-                <button type="submit" class="btn btn-primary d-block">
-                    Cari
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-plus-circle"></i> Tambah Barang
                 </button>
             </div>
-        </form>
+
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-hover result" id="example">
                 <thead class="table-primary text-center">

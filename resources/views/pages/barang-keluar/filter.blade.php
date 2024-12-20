@@ -3,30 +3,18 @@
 @section('content')
 
     <div class="my-3 text-center">
-        <h3 class="fw-bold">Data Barang Keluar</h3>
+        <h3 class="fw-bold">Data Barang Keluar Dari Tanggal {{ \Carbon\Carbon::parse($startDate)->format('d-m-Y') }} -
+            {{ \Carbon\Carbon::parse($endDate)->format('d-m-Y') }}</h3>
     </div>
     <div class="mt-5">
-        <div class="d-flex justify-content-between align-items-center gap-3 mb-2">
-            <form action="{{ route('filterBarangKeluar') }}" method="get" class="d-flex align-items-start mb-3 gap-3">
-                <div class="form-group">
-                    <label for="startDate" class="form-label">Mulai dari</label>
-                    <input type="date" name="startDate" id="startDate" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="endDate" class="form-label">Sampai</label>
-                    <input type="date" name="endDate" id="endDate" class="form-control" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">&nbsp;</label>
-                    <button type="submit" class="btn btn-primary d-block">
-                        Cari
-                    </button>
-                </div>
-            </form>
+        <div class="d-flex justify-content-end align-items-center gap-3 mb-2">
             <div class="d-flex justify-content-end my-3">
-                <a href="/print" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</a>
+                {{-- <a href="/print" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</a> --}}
+                <form action="{{ route('printbarangKeluar') }}" method="get">
+                    <input type="hidden" name="startDate" value="{{ $startDate }}">
+                    <input type="hidden" name="endDate" value="{{ $endDate }}">
+                    <button type="submit" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</button>
+                </form>
 
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-plus-circle"></i> Tambah Barang
@@ -131,7 +119,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" class="btn btn-secondary">Reset</button>
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
                                     </div>
                                     </form>
                                 </div>
