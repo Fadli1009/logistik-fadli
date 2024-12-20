@@ -164,7 +164,7 @@ class BarangKeluarController extends Controller
         $startDate = $request->startDate;
         $endDate = $request->endDate;
         $dataBarangKeluar = BarangKeluar::whereBetween('created_at', [$startDate, $endDate])->with('barang')->get();
-        $pdf = Pdf::loadView('pages.barang-keluar.laporan', ['dataBarangKeluar' => $dataBarangKeluar, 'startDate' => $startDate, 'endDate' => $endDate]);
+        $pdf = Pdf::loadView('pages.barang-keluar.laporanFilter', ['dataBarangKeluar' => $dataBarangKeluar, 'startDate' => $startDate, 'endDate' => $endDate]);
         return $pdf->download('datapengeluaran-tanggal.pdf');
     }
 }

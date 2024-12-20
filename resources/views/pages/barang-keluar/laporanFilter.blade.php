@@ -131,6 +131,10 @@
             <br>
             <strong>Waktu Cetak:</strong> {{ date('H:i:s') }}
         </div>
+        <div class="report-period">
+            Periode: {{ \Carbon\Carbon::parse($startDate)->format('d-m-Y') }} s/d
+            {{ \Carbon\Carbon::parse($endDate)->format('d-m-Y') }}
+        </div>
     </div>
 
     <table>
