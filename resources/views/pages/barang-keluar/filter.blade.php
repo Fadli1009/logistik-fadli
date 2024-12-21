@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-end align-items-center gap-3 mb-2">
             <div class="d-flex justify-content-end my-3">
                 {{-- <a href="/print" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</a> --}}
-                <form action="{{ route('printbarangKeluar') }}" method="get">
+                <form action="{{ route('printFilterBarang') }}" method="get">
                     <input type="hidden" name="startDate" value="{{ $startDate }}">
                     <input type="hidden" name="endDate" value="{{ $endDate }}">
                     <button type="submit" class="btn btn-success me-3"><i class="bi bi-printer"></i> Print</button>

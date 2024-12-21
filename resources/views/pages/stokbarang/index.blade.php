@@ -21,10 +21,10 @@
         </div>
     </div>
     <script>
-        var options = {
+        var optionsStok = {
             series: [{
-                name: "QTY stok barang hari ini",
-                data: [{{ $total }}]
+                name: "QTY stok barang",
+                data: @json($dataMasuk->pluck('total_brng_masuk'))
             }],
             chart: {
                 height: 350,
@@ -52,7 +52,7 @@
             xaxis: {
                 type: 'datetime',
                 categories: @json(
-                    $dataKeluar->pluck('created_at')->map(function ($tanggal) {
+                    $dataMasuk->pluck('tanggal')->map(function ($tanggal) {
                         return \Carbon\Carbon::parse($tanggal)->format('Y-m-d');
                     })),
             },
@@ -63,13 +63,14 @@
             },
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+        var chartStok = new ApexCharts(document.querySelector("#chart"), optionsStok);
+        chartStok.render();
 
-        var options = {
+        var optionsPengeluaran = {
             series: [{
-                name: "QTY pengeluaran barang hari ini",
-                data: [{{ $totalPengeluaran }}]
+                name: "QTY pengeluaran barang",
+                data: @json($dataKeluar->pluck('total_brng_keluar'))
+
             }],
             chart: {
                 height: 350,
@@ -97,7 +98,7 @@
             xaxis: {
                 type: 'datetime',
                 categories: @json(
-                    $dataKeluar->pluck('created_at')->map(function ($tanggal) {
+                    $dataKeluar->pluck('tanggal')->map(function ($tanggal) {
                         return \Carbon\Carbon::parse($tanggal)->format('Y-m-d');
                     })),
             },
@@ -108,7 +109,7 @@
             },
         };
 
-        var chart = new ApexCharts(document.querySelector("#chartPengeluaran"), options);
-        chart.render();
+        var chartPengeluaran = new ApexCharts(document.querySelector("#chartPengeluaran"), optionsPengeluaran);
+        chartPengeluaran.render();
     </script>
 @endsection

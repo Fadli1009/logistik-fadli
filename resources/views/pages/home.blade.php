@@ -43,14 +43,15 @@
             </div>
         </div>
     </div>
+
     <script>
         var options = {
             series: [{
                 name: 'Barang Masuk',
-                data: [{{ $data->count() }}]
+                data: @json($finalBarangMasukData)
             }, {
                 name: 'Barang Keluar',
-                data: [{{ $dataKeluar->count() }}]
+                data: @json($finalBarangKeluarData)
             }],
             chart: {
                 height: 350,
@@ -64,10 +65,7 @@
             },
             xaxis: {
                 type: 'datetime',
-                categories: @json(
-                    $dataKeluar->pluck('created_at')->map(function ($tanggal) {
-                        return \Carbon\Carbon::parse($tanggal)->format('Y-m-d');
-                    })),
+                categories: @json($finalTanggal),
             },
             tooltip: {
                 x: {
